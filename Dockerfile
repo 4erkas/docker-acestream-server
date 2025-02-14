@@ -1,5 +1,6 @@
-FROM debian:8-slim
-LABEL maintainer="Peter Mescalchin <peter@magnetikonline.com>"
+
+FROM debian:10.5-slim
+
 
 ARG ACE_STREAM_VERSION
 
@@ -9,6 +10,7 @@ RUN DEBIAN_FRONTEND="noninteractive" \
 	apt-get --no-install-recommends --yes install \
 		curl \
 		libpython2.7 \
+		python-requests \
 		net-tools \
 		python-apsw \
 		python-lxml \
@@ -18,10 +20,11 @@ RUN DEBIAN_FRONTEND="noninteractive" \
 	apt-get clean && \
 	rm --force --recursive /var/lib/apt/lists && \
 	# install server
-	curl --silent "http://acestream.org/downloads/linux/acestream_${ACE_STREAM_VERSION}_x86_64.tar.gz" | \
+	curl --silent "http://download.acestream.media/linux/acestream_3.1.74_debian_10.5_x86_64.tar.gz" | \
 		tar --extract --gzip
 
 EXPOSE 6878/tcp
 
 ENTRYPOINT ["/start-engine"]
 CMD ["--client-console"]
+
