@@ -6,7 +6,9 @@ DOCKER_REPOSITORY=${DOCKER_REPOSITORY-"magnetikonline/acestream-server"}
 
 . "$DIRNAME/version"
 
+
 docker build \
+	--platform=linux/amd64 \
 	--build-arg "ACE_STREAM_VERSION=$ACE_STREAM_VERSION" \
 	--tag "$DOCKER_REPOSITORY:$ACE_STREAM_VERSION" \
 		"$DIRNAME"
